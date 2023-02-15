@@ -1,0 +1,12 @@
+<header class="header">
+  <div class="header-container container">
+    <ul class="header-list">
+      <li><a [routerLink]="['/']">Home</a></li>
+      <li *ngIf="showProducts"><a [routerLink]="['/products']">Products</a></li>
+      <li *ngIf="showCategories">
+        <a [routerLink]="['/categories']">Categories</a>
+      </li>
+    </ul>
+    <a href="" class="header-logout" (click)="logout()">Logout</a>
+  </div>
+</header>

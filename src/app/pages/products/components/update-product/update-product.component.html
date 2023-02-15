@@ -1,0 +1,125 @@
+<h6 mat-dialog-title>Update Product</h6>
+
+<div mat-dialog-content>
+  <mat-spinner *ngIf="!categoriesList && !productDetails"></mat-spinner>
+
+  <form
+    [formGroup]="updateProductForm"
+    *ngIf="categoriesList && productDetails"
+  >
+    <div class="d-flex justify-content-center m-3">
+      <div style="width: 200px">
+        <ng-container *ngIf="!imageUrl; else previewHolder">
+          <div class="d-flex justify-content-center">
+            <img
+              style="width: 200px; height: 200px; object-fit: cover"
+              [src]="
+                updateProductForm.controls['image'].value
+                  ? updateProductForm.controls['image'].value
+                  : 'assets/placeolder.svg'
+              "
+              alt="placeholder"
+            />
+          </div>
+        </ng-container>
+
+        <ng-template #previewHolder>
+          <div class="d-flex justify-content-center">
+            <img
+              style="width: 200px; height: 200px; object-fit: cover"
+              [src]="imageUrl"
+              alt="placeholder"
+            />
+          </div>
+        </ng-template>
+        <input
+          type="file"
+          #fileInput1
+          (change)="onFileSelected($event)"
+          style="display: none"
+        />
+
+        <button
+          type="button"
+          mat-raised-button
+          color="primary"
+          class="uploadButton mt-2"
+          (click)="fileInput1.click()"
+        >
+          Upload photo
+        </button>
+      </div>
+    </div>
+
+    <mat-form-field class="w-100" appearance="outline">
+      <input type="text" matInput placeholder="Title" formControlName="title" />
+      <mat-error
+        *ngIf="title?.hasError('required') && (title?.dirty || title?.touched)"
+      >
+        Title is <strong>required</strong>
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="w-100" appearance="outline">
+      <input type="text" matInput placeholder="Price" formControlName="price" />
+      <mat-error
+        *ngIf="price?.hasError('required') && (price?.dirty || price?.touched)"
+      >
+        Price is <strong>required</strong>
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="w-100" appearance="outline">
+      <input
+        type="text"
+        matInput
+        placeholder="Description"
+        formControlName="description"
+      />
+      <mat-error
+        *ngIf="
+          description?.hasError('required') &&
+          (description?.dirty || description?.touched)
+        "
+      >
+        Description is <strong>required</strong>
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="w-100" appearance="outline">
+      <mat-label>Category</mat-label>
+      <mat-select formControlName="category">
+        <mat-option *ngFor="let category of categoriesList" [value]="category">
+          <span class="d-flex justify-content-between">
+            <strong>
+              {{ category | titlecase }}
+            </strong>
+          </span>
+        </mat-option>
+      </mat-select>
+      <mat-error
+        *ngIf="
+          category?.hasError('required') &&
+          (category?.dirty || category?.touched)
+        "
+      >
+        Category is <strong>required</strong>
+      </mat-error>
+    </mat-form-field>
+  </form>
+</div>
+<div mat-dialog-actions>
+  <button
+    class="mr-2"
+    type="button"
+    [class.spinner]="submitLoading"
+    color="primary"
+    mat-raised-button
+    mat-button
+    [disabled]="submitLoading"
+    (click)="updateProduct()"
+  >
+    Add
+  </button>
+  <button mat-dialog-close mat-button mat-raised-button>Cancel</button>
+</div>

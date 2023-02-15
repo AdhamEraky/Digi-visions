@@ -1,0 +1,9 @@
+<div class="container">
+  <section class="mt-4">
+    <h2>Welcome back {{ userRoleName | titlecase }}!</h2>
+    <p *ngIf="showProducts"><a routerLink="/products">Manage Products</a></p>
+    <p *ngIf="showCategories">
+      <a routerLink="/categories">Manage Categories</a>
+    </p>
+  </section>
+</div>

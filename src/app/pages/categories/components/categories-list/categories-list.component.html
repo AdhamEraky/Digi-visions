@@ -1,0 +1,48 @@
+<div class="container">
+  <section class="mt-4 mb-4">
+    <mat-card>
+      <div class="d-flex align-items-center justify-content-between mb-3">
+        <mat-card-title>Categories</mat-card-title>
+        <small> Please select category to see it's products</small>
+      </div>
+      <mat-spinner *ngIf="!categoriesList"></mat-spinner>
+
+      <mat-card-content
+        *ngIf="categoriesList"
+        class="d-flex align-items-center justify-content-between"
+      >
+        <mat-card
+          class="category"
+          *ngFor="let category of categoriesList"
+          (click)="getCategoryProducts(category)"
+        >
+          {{ category | titlecase }}
+        </mat-card>
+      </mat-card-content>
+
+      <hr *ngIf="categoryProductsList" />
+
+      <mat-spinner *ngIf="showMatSpinner"></mat-spinner>
+
+      <div class="row" *ngIf="categoryProductsList">
+        <div
+          (click)="productDetails(product?.id)"
+          class="col-md-3 productCard"
+          *ngFor="let product of categoryProductsList"
+        >
+          <img class="productCard-image" [src]="product.image" alt="" />
+          <div
+            class="d-flex justify-content-between align-items-center productCard-details"
+          >
+            <p class="productCard-details-title">
+              {{ product.title | truncate : 20 }}
+            </p>
+            <strong class="productCard-details-price"
+              >{{ product.price }} </strong
+            ><span>LE</span>
+          </div>
+        </div>
+      </div>
+    </mat-card>
+  </section>
+</div>

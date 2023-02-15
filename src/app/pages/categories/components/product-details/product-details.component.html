@@ -1,0 +1,33 @@
+<mat-spinner *ngIf="!productDetails"></mat-spinner>
+<div class="row productDetails" *ngIf="productDetails">
+  <div class="col-md-7 productDetails-leftHandSide">
+    <strong class="productDetails-title">{{ productDetails?.title }}</strong>
+    <p class="productDetails-description">{{ productDetails?.description }}</p>
+
+    <div class="d-flex justify-content-between align-items-center">
+      <div>
+        <strong class="me-2">Category:</strong
+        ><span>{{ productDetails?.category | titlecase }}</span>
+      </div>
+
+      <div>
+        <strong class="me-2">Counts:</strong
+        ><span>{{ productDetails?.rating?.count }}</span>
+      </div>
+
+      <div>
+        <strong class="me-2">Rate:</strong
+        ><span>{{ productDetails?.rating?.rate }}</span>
+      </div>
+    </div>
+    <div class="productDetails-mainPrice">
+      <strong class="productDetails-mainPrice-price">{{
+        productDetails?.price
+      }}</strong>
+      <span>LE</span>
+    </div>
+  </div>
+  <div class="col-md-5 productDetails-rightHandSide">
+    <img [src]="productDetails?.image" alt="" />
+  </div>
+</div>
